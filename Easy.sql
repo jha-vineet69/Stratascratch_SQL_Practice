@@ -1,3 +1,4 @@
+----------------------------------------- Day 1 ----------------------------------------------
 -- Apartments in New York City and Harlem
 -- Find the search details of 50 apartment searches the Harlem neighborhood of New York City.
  SELECT * 
@@ -193,4 +194,37 @@ SELECT
 ( SELECT MAX(salary)
   FROM db_employee emp
   JOIN db_dept dept ON emp.department_id = dept.id
-  WHERE department = 'engineering') AS salary_difference
+  WHERE department = 'engineering') AS salary_difference;
+  
+-------------------------------------------- Day 1 ----------------------------------------------
+  
+  
+-------------------------------------------- Day 2 ----------------------------------------------
+  
+-- Users with Many Searches
+-- Count the number of users who made more than 5 searches in August 2021 
+SELECT COUNT(user_id)
+FROM(
+SELECT user_id, COUNT(search_id) AS num_searches
+FROM fb_searches
+WHERE date BETWEEN '2021-08-01' AND '2021-08-31'
+GROUP BY user_id) AS sub
+WHERE num_searches > 5;
+
+-- Users Activity Per Month Day
+-- Return a distribution of users activity per day of the month
+SELECT EXTRACT('day' FROM post_date), COUNT(post_id)
+FROM facebook_posts
+GROUP BY DATE(post_date)
+ORDER BY post_date;
+
+-- Number of Comments Per User in Past 30 days
+-- Return the total number of comments received for each user in the last 30 days. 
+-- Don't output users who haven't received any comment in the defined time period. Assume today is 2020-02-10.
+SELECT user_id, SUM(number_of_comments) 
+FROM fb_comments_count
+WHERE created_at BETWEEN '2020-02-10'::date - 30 * INTERVAL '1 DAY' AND '2020-02-10'::date
+GROUP BY user_id
+ORDER BY user_id;
+
+-------------------------------------------- Day 2 ----------------------------------------------
