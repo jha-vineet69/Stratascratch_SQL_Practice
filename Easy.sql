@@ -228,3 +228,70 @@ GROUP BY user_id
 ORDER BY user_id;
 
 -------------------------------------------- Day 2 ----------------------------------------------
+
+-------------------------------------------- Day 3 ----------------------------------------------
+
+-- Find all wineries which produce wines by possessing aromas of plum, cherry, rose, or hazelnut
+-- Find all wineries which produce wines by possessing aromas of plum, cherry, rose, or hazelnut.
+-- Output unique winery values only.
+SELECT DISTINCT winery 
+FROM winemag_p1
+WHERE description ILIKE ANY(ARRAY['%plum%', '%cherry%', '%rose%', '%hazelnut%']);
+
+-- Find the most profitable company in the financial sector of the entire world along with its continent
+-- Find the most profitable company from the financial sector. Output the result along with the continent 
+SELECT company, continent
+FROM forbes_global_2010_2014
+WHERE sector = 'Financials'
+ORDER BY profits DESC LIMIT 1
+
+-- Find libraries who haven't provided the email address in 2016 but their notice preference definition is set to email
+-- Find libraries who haven't provided the email address in 2016 but their notice preference definition is set to email.
+-- Output the library code.
+SELECT home_library_code
+FROM library_usage
+WHERE circulation_active_year = 2016 
+AND provided_email_address = 'FALSE'
+AND notice_preference_definition = 'email';
+
+-------------------------------------------- Day 3 ----------------------------------------------
+
+-------------------------------------------- Day 4 ----------------------------------------------
+
+-- Find the base pay for Police Captains
+-- Find the base pay for Police Captains.
+-- Output the employee name along with the corresponding base pay.
+SELECT employeename, basepay FROM sf_public_salaries
+WHERE jobtitle ILIKE '%captain%';
+
+-- Find how many times each artist appeared on the Spotify ranking list
+-- Find how many times each artist appeared on the Spotify ranking list
+-- Output the artist name along with the corresponding number of occurrences.
+-- Order records by the number of occurrences in descending order.
+SELECT artist, COUNT(position) AS times_appeared
+FROM spotify_worldwide_daily_song_ranking
+GROUP BY artist
+ORDER BY times_appeared DESC;
+
+-- Find all posts which were reacted to with a heart
+-- Find all posts which were reacted to with a heart.
+SELECT DISTINCT fp.* 
+from facebook_posts fp
+INNER JOIN facebook_reactions fr
+ON fp.post_id = fr.post_id AND reaction = 'heart';
+
+-- Count the number of movies that Abigail Breslin nominated for oscar
+-- Count the number of movies that Abigail Breslin was nominated for an oscar.
+SELECT COUNT(*) 
+FROM oscar_nominees
+WHERE nominee = 'Abigail Breslin';
+
+-- Bikes Last Used
+-- Find the last time each bike was in use. Output both the bike number and the date-timestamp of the bike's last use (i.e., the date-time the bike was returned). 
+-- Order the results by bikes that were most recently used.
+SELECT bike_number, MAX(end_time) AS last_used
+FROM dc_bikeshare_q1_2012
+GROUP BY bike_number
+ORDER BY last_used;
+
+-------------------------------------------- Day 4 ----------------------------------------------
